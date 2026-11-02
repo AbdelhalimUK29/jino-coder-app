@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core Base CSS Variables for System Interoperability */
+  --background: #09090F;
+  --foreground: #F8FAFC;
+
+  /* Glass Panel Defaults */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Tailwind v4 CSS-First Custom Theme Configuration */
+@theme {
+  /* Background Palette */
+  --color-bg-primary: #09090F;
+  --color-bg-secondary: #121327;
+  --color-bg-card: #1A1C38;
+  --color-bg-code: #0D1025;
+  --color-bg-sidebar: #111322;
+
+  /* Primary Theme Colors (Purple) */
+  --color-purple-primary: #8B5CF6;
+  --color-purple-dark: #6D28D9;
+  --color-purple-light: #B983FF;
+
+  /* Secondary Theme Colors (Cyan Glow) */
+  --color-cyan-primary: #00E5FF;
+  --color-cyan-dark: #00B4D8;
+  --color-cyan-glow: #63F6FF;
+
+  /* Accent Highlight (Pink - Use Sparingly) */
+  --color-pink-accent: #FF4FD8;
+
+  /* Semantic Colors */
+  --color-success: #00FF9D;
+  --color-warning: #FFC857;
+  --color-danger: #FF4D6D;
+
+  /* Text Colors */
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
+  --color-text-disabled: #64748B;
+
+  /* Borders */
+  --color-border-default: #2D2F54;
+  --color-border-active: #00E5FF;
+
+  /* Glowing Shadows */
+  --shadow-purple-glow: 0 0 30px rgba(139, 92, 246, 0.45);
+  --shadow-cyan-glow: 0 0 25px rgba(0, 229, 255, 0.35);
+  --shadow-button-glow: 0 10px 30px rgba(0, 229, 255, 0.25);
+  --shadow-card-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+  /* Border Radii */
+  --radius-btn: 14px;
+  --radius-card: 20px;
+  --radius-input: 14px;
+  --radius-bubble: 18px;
+  --radius-panel: 24px;
+
+  /* Custom Typography Config */
+  --font-logo: "Orbitron", var(--font-orbitron), sans-serif;
+  --font-heading: "Space Grotesk", var(--font-space-grotesk), sans-serif;
+  --font-sans: "Inter", var(--font-inter), sans-serif;
+  --font-mono: "JetBrains Mono", var(--font-jetbrains-mono), monospace;
+
+  /* Custom Animations */
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-gradient-shift: gradient-shift 6s ease infinite;
+  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base resets & global scrollbar styling */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg-primary);
+  background-image: radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.15) 0%, transparent 60%),
+                    linear-gradient(180deg, #09090F 0%, #121327 50%, #09090F 100%);
+  background-attachment: fixed;
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Webkit scrollbars to match the premium dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090F;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2D2F54;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B5CF6;
+}
+
+/* Custom Keyframe Animations for floating effects & ambient glows */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; filter: blur(4px); }
+  50% { opacity: 0.6; filter: blur(8px); }
+}
+
+/* Custom CSS helper utility classes */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #B983FF 0%, #8B5CF6 45%, #00E5FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glow-btn-primary {
+  background: linear-gradient(90deg, #8B5CF6, #00E5FF);
+  background-size: 200% auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-btn-primary:hover {
+  background-position: right center;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: var(--shadow-button-glow);
 }
